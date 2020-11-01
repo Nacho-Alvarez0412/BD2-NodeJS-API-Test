@@ -1,22 +1,38 @@
 // Imports
 const express = require('express'); // Express es un modulo que permite la creación de rutas
+const mongoose = require ('mongoose'); // Módulo que permite realizar conexiones con Bases de Datos Mongo
+require('dotenv/config');
 
 // Disfrazamos la constante express por app para darle legibilidad al código
 const app = express();
 
+//Middleware 
+app.use(
+    express.urlencoded({
+        extended : true
+    })
+);
+app.use(express.json());
+
+
+// imports ROUTES 
+const postRoute = require('./Routes/Posts');
+//const userRoute = require('./Routes/Users');
+
+
+app.use('/posts',postRoute)
+//app.use('/users',userRoute)
 
 
 
-//ROUTES : 
-//localhost:3000/post <- Ejemplo de ruta
 
-app.get ('/', (req, res) => {
-    res.send('Hola todos estamos en el home guapos');
-});
+mongoose.connect(process.env.DB_CONNECTION,
+                    {useUnifiedTopology : true, useNewUrlParser : true},
+                    () => {console.log( 'connected to DB!!')}
+);
 
-app.get ('/posts', (req, res) => {
-    res.send({message : 'pura vida bro', nombre : 'Ignacio'});
-});
+
+
 
 // Server listening in port 3000
 app.listen(3000);

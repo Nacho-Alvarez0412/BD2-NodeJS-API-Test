@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/Nacho-Alvarez0412/NodeJS_API_Test#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mongoose": "^5.10.11",
     "nodemon": "^2.0.6"
   }
 }
